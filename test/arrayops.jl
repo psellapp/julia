@@ -29,6 +29,12 @@ b = a+a
 @test isequal([1,2,5].<<[1,2,5], [2,8,160])
 @test isequal([10,20,50].>>[1,2,5], [5,5,1])
 
+a = ones(2,2)
+numtypes = (Int32, Int64, Int128, UInt16, UInt32, UInt64, UInt128, Float16, Float32, Float64, BigInt, BigFloat, Rational)
+for (T1, T2) in (numtypes,numtypes)
+    @test ones(T1(2),T2(2)) == a
+    @test_throws InexactError ones(T1(2.5),T2(2.5))
+end
 
 a = ones(2,2)
 a[1,1] = 1
